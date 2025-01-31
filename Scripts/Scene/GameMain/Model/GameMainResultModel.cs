@@ -2,11 +2,11 @@ using UniRx;
 using UnityEngine;
 using GameMain;
 using System;
-using UnityEditor.SearchService;
 using Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Schema;
+using System.Runtime.InteropServices;
 
 namespace GameMain
 {
@@ -14,6 +14,14 @@ namespace GameMain
 	{
 		public sealed class GameMainResultModel
 		{
+			//コピー
+			[DllImport("__Internal")]
+			private static extern void CopyWebGL(string str);
+
+    		//ペースト
+			[DllImport("__Internal")]
+			private static extern void AsyncPasteWebGL();
+
 			public GameMainResultModel()
 			{
 
@@ -41,6 +49,7 @@ namespace GameMain
 					}
 				}
 				GUIUtility.systemCopyBuffer = countText;
+				CopyWebGL(countText);
             }
 		}
 	}
